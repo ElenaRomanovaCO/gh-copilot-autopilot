@@ -1,0 +1,41 @@
+MIT License
+
+Copyright (c) 2026 Nick Vels          — the original Autopilot skill
+Copyright (c) 2026 Elena Romanova     — the GitHub Copilot port
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+This is a derivative work.
+
+The Autopilot skill — its phases, gates, manifest design and dashboard — was
+written by Nick Vels and published at https://github.com/nick-vels/skills
+under the MIT licence above. The overwhelming majority of the text in
+.github/skills/autopilot/ is his, unchanged.
+
+This package adapts that skill to VS Code with GitHub Copilot agent mode.
+What is new here: the four agent definitions in .github/agents/, the
+file-backed replacements for stateless subagents, the Windows and PowerShell
+adaptations, the VS Code settings, and the documentation in README.md and
+FIRST-RUN.md. See "What is different from the Claude Code original" in
+README.md for the full list.
+
+Both the original and the port are MIT. Nothing here restricts what upstream
+already granted.

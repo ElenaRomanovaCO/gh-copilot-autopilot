@@ -1,0 +1,87 @@
+{
+  // ─────────────────────────────────────────────────────────────────────────
+  // Autopilot for GitHub Copilot — project settings
+  //
+  // Merge these into an existing .vscode/settings.json rather than replacing
+  // it. Every key here is independent; drop any one you disagree with.
+  // ─────────────────────────────────────────────────────────────────────────
+
+  // Skills and custom agents. Both are on by default in current builds; these
+  // are here so an older or a locked-down machine does not silently ignore
+  // the skill and leave you wondering why /autopilot does nothing.
+  "chat.useAgentSkills": true,
+  "github.copilot.chat.skillTool.enabled": true,
+
+  // Subagents. Autopilot flies waves of up to three tickets at once and never
+  // nests, so three is the number that matches the plan; more buys nothing.
+  "chat.subagents.enabled": true,
+  "chat.subagents.maxConcurrency": 3,
+  "chat.subagents.allowInvocationsFromSubagents": false,
+
+  // Terminal approvals. A real run fires hundreds of commands, and confirming
+  // each one by hand is the end of a hands-free build. This list is read-only
+  // and build-local work: reads, tests, and the run's own git.
+  //
+  // Everything not listed still prompts, which is the point — `curl`, `rm -rf`,
+  // `npm publish`, `git push`, `docker` and anything you have not thought of
+  // stop and ask.
+  "chat.tools.terminal.autoApprove": {
+    "git status": true,
+    "git diff": true,
+    "git show": true,
+    "git log": true,
+    "git add": true,
+    "git commit": true,
+    "git init": true,
+    "git rev-parse": true,
+    "npm test": true,
+    "npm run": true,
+    "npm ci": true,
+    "npm install": true,
+    "npx": true,
+    "node": true,
+    "pytest": true,
+    "python": true,
+    "py": true,
+    "go test": true,
+    "cargo test": true,
+    "dotnet test": true,
+    "Get-Date": true,
+    "Get-Content": true,
+    "Get-ChildItem": true,
+    "Copy-Item": true,
+    "Test-Path": true,
+    "Select-String": true,
+    "Start-Process": true,
+    "cat": true,
+    "ls": true,
+    "cp": true,
+    "date": true,
+    "tail": true,
+    "head": true,
+    "grep": true,
+
+    // Never auto-approved, whatever a broader rule above might imply.
+    // Autopilot treats every one of these as a question in all four modes;
+    // this is the same rule enforced a level lower down.
+    "/^git push/": false,
+    "/^git reset --hard/": false,
+    "/^git clean/": false,
+    "/^git rebase/": false,
+    "/^npm publish/": false,
+    "/^rm /": false,
+    "/^Remove-Item/": false,
+    "/^curl/": false,
+    "/^wget/": false,
+    "/^Invoke-WebRequest/": false,
+    "/^ssh/": false,
+    "/^docker/": false,
+    "/^kubectl/": false
+  },
+
+  // The dashboard is a static file the agent opens in your browser. Nothing
+  // here needs a server, and nothing is left running when the build lands.
+  "files.associations": {
+    ".autopilot/state.js": "javascript"
+  }
+}
