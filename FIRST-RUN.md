@@ -6,9 +6,57 @@ Read it once before the first build. It is written for the run you are about to 
 
 ---
 
+## Where the files go, and where you run it
+
+Two different places, and confusing them is the one setup mistake that costs you a whole build.
+
+### The files go in your user profile — once, ever
+
+```
+%USERPROFILE%\.copilot\skills\autopilot\     the skill
+%USERPROFILE%\.copilot\agents\*.agent.md     the four agents
+```
+
+That is `C:\Users\<you>\.copilot\...`. Create the folders if they are not there.
+
+**Not** into VS Code's own program directory, and not into whichever folder the ZIP happened to land in. VS Code looks in specific places and nowhere else. The skill folder must be named exactly `autopilot`, because VS Code matches the folder name against the `name:` inside `SKILL.md` and will not load it otherwise.
+
+Installed there, it is available in every project you ever open. There is no per-project setup, and no second copy to keep in sync.
+
+**Once that copy is made, the downloaded package has done its job.** You can delete it.
+
+### Nothing is launched, and nothing is filled in
+
+These are not templates and there is no program. They are instruction files an agent reads: `SKILL.md` enters the agent's context when you type `/autopilot`, and each phase file is read off disk as that phase begins.
+
+There is no build step, no `npm`, no runtime and no service. Copy the files, restart VS Code, type `/autopilot`.
+
+### The build runs in the project's own window
+
+| | Where |
+|---|---|
+| the skill and the agents | `%USERPROFILE%\.copilot\` — installed once |
+| a build | a VS Code window opened on **the folder the project should live in** |
+
+Open VS Code on `C:\dev\my-telegram-bot` — an empty folder is the normal case — and type `/autopilot ...` there. Autopilot creates `.autopilot/` in that folder, runs `git init` there, and writes every line of the project there.
+
+> **Do not start a build inside the `gh-copilot-autopilot` folder.** That folder is the delivery package. A build started there would create the project *inside the skill's own repository*, tangled with the skill's files and committed to its history — and the first thing you would notice is the mess, not the mistake.
+
+One project, one window, one folder. Two projects at once means two VS Code windows, and they will not interfere with each other: `.autopilot/` belongs to the folder, not to the installation.
+
+### What has to be in place
+
+- **VS Code, up to date.** This is the real risk, and the failure is silent — a build without Agent Skills support ignores the skill entirely rather than complaining. Help ▸ About, and update if you are behind.
+- **The Copilot Chat extension**, and the chat set to **Agent** mode. Ask and Edit modes cannot write files or run the terminal, so they will read your brief and do nothing with it.
+- **A model you are entitled to** — Claude Opus 4.6 or similar — selected in the model dropdown.
+- **Git installed.** Autopilot commits once per ticket, and those commits are your rollback points.
+- **A runtime for whatever gets built** — Node, Python, whatever the project needs. Nothing is needed for the skill itself.
+
+---
+
 ## Before you type anything
 
-Four things, and three of them are one-time:
+Installation is done (above). Per run, four things:
 
 - **Copilot Chat is in Agent mode** — not Ask, not Edit. Agent mode is the one that can write files and run the terminal; the other two will read your brief and do nothing with it.
 - **Claude Opus 4.6 is selected** in the model dropdown. The four subagents inherit it — their agent files set no `model:` of their own.
@@ -155,6 +203,7 @@ Use a throwaway project. Watch for these, in the order they would bite:
 | A reviewer seems to have no tools at all | Same cause, same fix. |
 | Dashboard says "Dashboard has no state yet" | The page was opened somewhere that cannot load `state.js` beside it — almost always VS Code's Simple Browser. Open `.autopilot\dashboard.html` in Edge or Chrome instead. |
 | Times all end in `:00`, durations show `—` | Wrong shell detected. Tell the agent which shell your terminal is; it will correct `state.js`. |
+| The project's files are appearing inside `gh-copilot-autopilot` | The build was started in the package folder instead of the project folder. Stop it, delete the `.autopilot/` and any generated files from there, open VS Code on the project's own folder and start again. |
 | The build stops to confirm every command | The auto-approve settings did not get merged. See README, install step. |
 | It asks you a question about *process* — which tracker, where tickets live | It should not, outside `manual`. Tell it to decide for itself; that is what the skill says to do. |
 

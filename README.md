@@ -64,6 +64,8 @@ Option B commits the skill to the repository, so everyone on the team gets it. O
 
 **Restart VS Code.** Skills and agents are read at startup.
 
+Installed this way, the skill is available in every project you open, and the downloaded package has done its job — you can delete it. **Builds are run in a VS Code window opened on the project's own folder, never inside this package.** [FIRST-RUN.md](FIRST-RUN.md) opens with why that matters.
+
 ### Check it took
 
 Open Copilot Chat, make sure the mode is **Agent**, and type `/`. `autopilot` should be in the list. If it is not:
