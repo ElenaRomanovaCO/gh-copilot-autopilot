@@ -25,6 +25,7 @@ The package folder is `gh-copilot-autopilot`; the skill folder inside it must st
 
 README.md                 install, and what differs from the original
 FIRST-RUN.md              what a run actually looks like — read this once before the first build
+WITH-EXISTING-DESIGN.md   which dials to change when you already have a design
 ```
 
 ---
@@ -95,6 +96,8 @@ Or point it at a file, which is the better idea for anything real — the more y
 ```
 
 Autopilot replies with the mode it is flying in, opens a dashboard in your browser, and starts.
+
+If you are arriving with a brief, a technical design or a system diagram already written, read [WITH-EXISTING-DESIGN.md](WITH-EXISTING-DESIGN.md) first — the default dials will redo that thinking and land somewhere slightly different from what you settled on.
 
 **[FIRST-RUN.md](FIRST-RUN.md) is the one to read before you do this for real** — what happens at each stage, where the subagents appear, what the chat looks like while it builds, where it will stop and ask you, how to resume after the session dies, and what to check on the first build. The full rules of modes, depth and polish are in [`SKILL.md`](.github/skills/autopilot/SKILL.md), which the agent reads so that you do not have to.
 
