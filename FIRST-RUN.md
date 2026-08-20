@@ -67,6 +67,60 @@ The four `autopilot-*` agents will not appear in your agent dropdown. They are `
 
 ---
 
+## If you already have a brief, a design, or a diagram
+
+Autopilot is written for someone who has an idea and nothing else. If you arrive with a written brief, a technical design and a system diagram, you have already done the thinking that the first three phases exist to do — and you should change how you invoke it, or it will do that thinking again and reach somewhere slightly different.
+
+### What is still worth having, and what is not
+
+| Still earns its keep | Now largely redundant |
+|---|---|
+| **The manifest** — your design is prose; this turns it into numbered requirements with a status each, checked at four gates | **The briefing** — your design already answers the forks it would ask about |
+| **The plan, the crew, the review** — the cut into tickets, a fresh context per ticket, three axes of review | **The spec** — becomes a transcription of your design rather than an act of invention |
+| **Blind acceptance** — someone reads your brief, runs the result, and reports what is not there | |
+
+The first of those is worth having however much design you did. It is the difference between *what I wrote down* and *what got built*, tracked to the end.
+
+### Four changes to how you start
+
+**1. Run it `strict`.** That is the dial for exactly this case: no capabilities invented, deepening only where a requirement cannot work without it. The default `normal` elaborates on top of what you said, which is the right behaviour for a bare idea and the wrong one for a settled design.
+
+**2. Put the design in the repo before you start.** Preflight looks for `CONTEXT.md` and `docs/adr/`, and if it finds them the spec is required to speak that vocabulary rather than inventing synonyms, and to say so out loud where a decision contradicts a recorded one instead of quietly overriding it. A file in the repo is worth more than the same text pasted into chat.
+
+**3. Convert the diagram to text.** This is the one that will actually cost you something. An image may or may not be readable, and the failure is not an error message — it is a spec that quietly ignored the diagram. Put it in the design document as a **mermaid block** or an ASCII sketch. Boxes and arrows written as text are read every time.
+
+**4. Leave the mode at `semi`.** You still want a question when it finds a real gap between the design and what has to be built. `full` would decide it for you and tell you at the end, in the assumptions list.
+
+### The risk worth naming in the brief
+
+That its spec drifts from your design. Say in the brief that the design is a constraint, not a suggestion.
+
+There is a legitimate path for departures — when the code proves the design wrong, the spec is amended and a `D##` row records what the code demonstrated and when, and you are told in one line. That mechanism is worth having. What `strict` plus an explicit instruction closes off is the other thing: a redesign nobody announced.
+
+### If it is a proof of concept
+
+The tier is read from what has to be built, never from how much you wrote. A POC lands at one of the two smallest:
+
+- **T0** — one surface, one layer, no external service. **No tickets at all**: it is built in one pass, in one context. Autopilot's largest advantage, a fresh context per ticket, does not engage here. What you are buying is the manifest and the blind acceptance.
+- **T1** — a few surfaces over one data shape, two or three tickets. This is where the machinery starts paying for itself.
+
+**Be honest about which you have.** If the POC is genuinely one script or one endpoint, this is heavier than the job needs. If it is three or four moving parts you want to actually work together, it fits.
+
+Say *proof of concept* in the brief, in those words — throwaway quality, shortest path to something runnable, no production hardening. It becomes a tracked requirement and constrains the build like any other, rather than a preference the run can drift away from. And leave `polish` off: it exists to finish something to a reference, and it costs real time and real money.
+
+### What that looks like typed
+
+```
+/autopilot strict docs/brief.md — docs/design.md and the diagram in it are
+the technical design: follow them, don't redesign. If something in the design
+can't work, tell me rather than routing around it. This is a POC — shortest
+path to something I can run, no production hardening.
+```
+
+The path is read as the task; the words beside it join the same brief. Every sentence there becomes a tracked requirement instead of a preference.
+
+---
+
 ## The run
 
 ### `/autopilot I want a Telegram bot that takes repair requests into a Google Sheet`
